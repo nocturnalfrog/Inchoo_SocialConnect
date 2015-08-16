@@ -90,6 +90,8 @@ class Inchoo_SocialConnect_Model_Facebook_Info extends Varien_Object
 
     protected function _load()
     {
+        $this->params['fields'] = 'first_name,last_name,email';
+
         try{
             $response = $this->client->api(
                 '/me',
