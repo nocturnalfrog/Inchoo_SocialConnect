@@ -196,6 +196,9 @@ class Inchoo_SocialConnect_Model_Linkedin_Oauth2_Client
     protected function _httpRequest($url, $method = 'GET', $params = array())
     {
         $client = new Zend_Http_Client($url, array('timeout' => 60));
+        $client->setConfig(array(
+            'httpversion' => Zend_Http_Client::HTTP_0
+        ));
 
         switch ($method) {
             case 'GET':
