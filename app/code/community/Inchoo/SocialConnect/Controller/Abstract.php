@@ -67,7 +67,13 @@ class Inchoo_SocialConnect_Controller_Abstract extends Mage_Core_Controller_Fron
                 $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
             }
         }
-        $this->_redirectUrl($session->getBeforeAuthUrl(true));
+
+        $beforeAuthUrl = $session->getBeforeAuthUrl(true);
+        if(strpos($beforeAuthUrl, 'customer/account/login') === false){
+            $this->_redirectUrl($beforeAuthUrl);
+        }else{
+            $this->_redirectUrl('https://www.musebooks.world/');
+        }
     }
 
     /**
