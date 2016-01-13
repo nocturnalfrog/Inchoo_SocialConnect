@@ -69,12 +69,13 @@ class Inchoo_SocialConnect_Controller_Abstract extends Mage_Core_Controller_Fron
         }
 
         $beforeAuthUrl = $session->getBeforeAuthUrl(true);
-        if(strpos($beforeAuthUrl, 'customer/account/login') === false){
-            Mage::log('Natural redirection to: "' . $beforeAuthUrl . '"');
-            $this->_redirectUrl($beforeAuthUrl);
-        }else{
+        if ($session->isLoggedIn() && strpos($beforeAuthUrl, 'customer/account/') !== false) {
             $this->_redirectUrl('https://www.musebooks.world/');
         }
+
+        // Don't override redirect if user could not log in or $beforeAuthUrl doesn't go to account page.
+        Mage::log('Allow normal redirect to: "' . $beforeAuthUrl . '"');
+        $this->_redirectUrl($beforeAuthUrl);
     }
 
     /**
